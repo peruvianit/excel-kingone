@@ -40,4 +40,4 @@ Correzione 2:
 C'è un sbaglio anche sul foglio 3, succede che non stato calcolato bene il risassunto. Quello che deve essere fatto:
 - Se sono parte della squadra A (giocatore 1 e Giocatore 2) devo avere la somma di tutti Games vinti per la squarda Uno e fare la differza tra quelli che ho vinto i restare quelli che hanno viento la squadra B. Poi lo stesso dovrei fare se in altra partita faccio parte della squadra B.
 caso di uso
-Se la prima partita ho vinto 6-3 e la seconda perdo 4-5. Sulla prima ho +3 games e sulla seconda -1, il totale che deve andare a finire sul foglio 3 è +2
+Se la prima partita ho vinto 6-3 e la seconda perdo 4-5. Sulla prima ho +3 games e sulla seconda -1, il totale che deve andare a finire sul foglio 3 è +2.
