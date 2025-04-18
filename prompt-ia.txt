@@ -1,0 +1,43 @@
+Vorrei che mi fai un analisis come un esperto che organizza eventi sportivi e che hai molta conoscensa come mostrari i dati su microsoft Excel.
+Serve la creazione di un foglio excel per la gestioni dei mini tornei-, prima de iniziare ci sono dei paramtrei che possono essere configurati:
+1. Durata tempo minuti del torneo
+2. Durata partite
+3. ora inizio torneo
+4 Numero di campi a disposizione
+5 Numero di giocatori da effettuare il torneo
+6. path export file excel
+
+Scripi da effettuare in pyhton:
+Avendo questi input, il mini torneo è per lo sport di Padel, che per ogni campo ci sono 4 giocatori (2 destri e 2 sinitri), la coppia è un sinistro con unn destro. Il numero di giocatori come input deve essere controllato e deve lanciare una eccezione se il numero non è multiplo di 4 e non deve superare il numeri di giocatori diviso 4 con il numero di campi a disposizione.  Dal numero di giocatori viene creata una lista divisa in metta, esempio se ho detto 16 giocatori, dovrei creare :
+D1 fino a D8 E S1 ffino a S8  "D" per desctro e "S" per sinistro così avro si 8 giocatori destri e 8 giocatori snistri.
+Lo scopo è generare dal tempo totale del torneo, il numero di turni da effetture in tutti campi disponibili in contemporaneo, sempre con lo stesso esempio di 16 giocatorui. Se ho 2 ore di torneo e ogni incontro dura 20 minuti, dovrei avere 6 turni in 4 campi a disposizioni, in torale sono 24 partite.
+Nella generazione è molto importante seguire :
+1.In ogni turno devono giocare tutti giocatori.
+2.In campo devono avere sia 2 destri che 2 sinistri.
+3.In tutti i turni serve avere un algoritmo per ottimazzare le partite er avere sempre diversi giocatori seza farli giocare insieme.
+4.Serve ottimizzare e questo è molto importante di non fare che in tutte le partite siano destri che sinistri si incontrano sulla partita. esempio, per questo esempio avere D1 e D3 che fanno 4 partite, non va bene, bisogna minimizzare le partite tra di loro.
+
+Como risultato finiale mi serve un documento excel con tre fogli
+Primo folgio(Giocatori) :
+Tutti giocatori con 2 colonne [NOME. POSIZIONE] la seconda per dire si è DESTRO  o SINISTRO.
+Secondo folgio(Partite) :
+colonne da visualizzare sono TURNO (4 righe per turno), ORARIO PARTITA che al inizio deve essere il pararmetro in input che ho configurato, dal secondo turno viene aggiunto i minuti per parttite che ho configurato. GIOCATORE 1(Destro) | GIOCATORE 2(Sinitro) | GIOCATORE 3(Destro) | GIOCATORE 4(Sinistro) , GAMES VINTO SQUADRA 1 | GAMES VINTO SQUADRA 2 
+Terzo folgio(Reassunto) :
+Lista di giocatori con le colonne NOME | GAMES VINTI questo è calcolato dal foglio (Partite) per sapere il totale di games vinti meno quelli persi
+
+Sia sul folgio 2 che sul foglio 3, quando vengono scritti i nome del giocatori, viene creato una formula di referenza alla cella del foglio 1, per dare la possinbilità di cambiare il nome sul primo file, gli altri siano aggiornati automaticamente. 
+Tutti celle con formiula, che siano nascosti e che non se possano vedere, a meno che hanno la password. La password da configurare è "P4D3L1ND**R".
+Come output mi devi generare il file excel sul path che ti ho configurato.
+
+Il codice che serve se riesci a scriverlo sul file corrente kingone-generator.py, come sarà la prima volta che averi bisogno di eseguirlo mi dai tutti pip che me servono per installare.
+
+Correzione 1:
+------------
+Sbaglatio, hai creo il secondo foglio dove come giocatore 1 hai messo lo stesso giocatori, ti avevo questo in questo caso che tutti giocatori siano destri che sinistri devono giocare il turno, tutti 16 in questo caso devono fare le partite
+
+Correzione 2:
+------------
+C'è un sbaglio anche sul foglio 3, succede che non stato calcolato bene il risassunto. Quello che deve essere fatto:
+- Se sono parte della squadra A (giocatore 1 e Giocatore 2) devo avere la somma di tutti Games vinti per la squarda Uno e fare la differza tra quelli che ho vinto i restare quelli che hanno viento la squadra B. Poi lo stesso dovrei fare se in altra partita faccio parte della squadra B.
+caso di uso
+Se la prima partita ho vinto 6-3 e la seconda perdo 4-5. Sulla prima ho +3 games e sulla seconda -1, il totale che deve andare a finire sul foglio 3 è +2
