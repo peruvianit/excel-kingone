@@ -273,7 +273,7 @@ class PadelTournamentGenerator:
         # Set protection with password [Disabled for now]
         #for sheet in wb.sheetnames:
         #    wb[sheet].protection.sheet = True
-        #    wb[sheet].protection.password = "P4D3L1ND**R"
+        #    wb[sheet].protection.password = "P4D3L1ND**RPADIGLIONE00042"
         
         # Save workbook
         wb.save(self.export_path)
