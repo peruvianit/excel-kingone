@@ -208,7 +208,7 @@ class PadelTournamentGenerator:
                 if player_name in player_to_row:
                     player_row = player_to_row[player_name]
                     # Set formula reference
-                    sheet_matches.cell(row=row, column=col).value = f'=Giocatori!A{player_row}'
+                    sheet_matches.cell(row=row, column=col).value = f'=SE(Giocatori!A{player_row}="","",Giocatori!A{player_row})'
         
         # Create formulas for summary sheet
         for row in range(2, len(all_players) + 2):
@@ -216,7 +216,7 @@ class PadelTournamentGenerator:
             if player_name in player_to_row:
                 player_row = player_to_row[player_name]
                 # Set formula reference for name
-                sheet_summary.cell(row=row, column=1).value = f'=Giocatori!A{player_row}'
+                sheet_summary.cell(row=row, column=1).value = f'=SE(Giocatori!A{player_row}="","",Giocatori!A{player_row})'
                 
                 # Correzione alla formula per il calcolo dei games vinti
                 # Quando sono nella squadra 1 (giocatore 1 o 2): games vinti - games persi
@@ -224,36 +224,36 @@ class PadelTournamentGenerator:
                 
                 formula_games_vinti = (
                     # Quando sono giocatore 1 o 2 (Squadra 1)
-                    f'=SUMIFS(Partite!H:H,Partite!D:D,Giocatori!A{player_row})+' +  # Games vinti come giocatore 1
+                    f'=SE(Giocatori!A{player_row}="","",SUMIFS(Partite!H:H,Partite!D:D,Giocatori!A{player_row})+' +  # Games vinti come giocatore 1
                     f'SUMIFS(Partite!H:H,Partite!E:E,Giocatori!A{player_row})+' +  # Games vinti come giocatore 2
                     
                     # Quando sono giocatore 3 o 4 (Squadra 2)
                     f'SUMIFS(Partite!I:I,Partite!F:F,Giocatori!A{player_row})+' +  # Games vinti come giocatore 3
-                    f'SUMIFS(Partite!I:I,Partite!G:G,Giocatori!A{player_row})'  # Games vinti come giocatore 4
+                    f'SUMIFS(Partite!I:I,Partite!G:G,Giocatori!A{player_row}))'  # Games vinti come giocatore 4
                 )
 
                 formula_partite_vinti = (
-                    f'=SUMPRODUCT(('
+                    f'=SE(Giocatori!A{player_row}="","",SUMPRODUCT(('
                     f'(Partite!D:D=Giocatori!A{player_row})+(Partite!E:E=Giocatori!A{player_row}))'
                     f'*(Partite!H:H>Partite!I:I)) + '
                     f'SUMPRODUCT(('
                     f'(Partite!F:F=Giocatori!A{player_row})+(Partite!G:G=Giocatori!A{player_row}))'
-                    f'*(Partite!I:I>Partite!H:H))'
+                    f'*(Partite!I:I>Partite!H:H)))'
                 )
 
                 formula_games_persi = (
                     # Quando sono giocatore 1 o 2 (Squadra 1)
-                    f'=SUMIFS(Partite!I:I,Partite!D:D,Giocatori!A{player_row})+' +  # Games persi come giocatore 1
+                    f'=SE(Giocatori!A{player_row}="","",SUMIFS(Partite!I:I,Partite!D:D,Giocatori!A{player_row})+' +  # Games persi come giocatore 1
                     f'SUMIFS(Partite!I:I,Partite!E:E,Giocatori!A{player_row})+' +  # Games persi come giocatore 2
                     
                     # Quando sono giocatore 3 o 4 (Squadra 2)
                     f'SUMIFS(Partite!H:H,Partite!F:F,Giocatori!A{player_row})+' +  # Games persi come giocatore 3
-                    f'SUMIFS(Partite!H:H,Partite!G:G,Giocatori!A{player_row})'     # Games persi come giocatore 4
+                    f'SUMIFS(Partite!H:H,Partite!G:G,Giocatori!A{player_row}))'     # Games persi come giocatore 4
                 )
 
                 formula_differenza = (
                     # Quando sono giocatore 1 o 2 (Squadra 1)
-                    f'=SUMIFS(Partite!H:H,Partite!D:D,Giocatori!A{player_row})+' +  # Games vinti come giocatore 1
+                    f'=SE(Giocatori!A{player_row}="","",SUMIFS(Partite!H:H,Partite!D:D,Giocatori!A{player_row})+' +  # Games vinti come giocatore 1
                     f'SUMIFS(Partite!H:H,Partite!E:E,Giocatori!A{player_row})-' +  # Games vinti come giocatore 2
                     f'SUMIFS(Partite!I:I,Partite!D:D,Giocatori!A{player_row})-' +  # Games persi come giocatore 1
                     f'SUMIFS(Partite!I:I,Partite!E:E,Giocatori!A{player_row})+' +  # Games persi come giocatore 2
@@ -262,7 +262,7 @@ class PadelTournamentGenerator:
                     f'SUMIFS(Partite!I:I,Partite!F:F,Giocatori!A{player_row})+' +  # Games vinti come giocatore 3
                     f'SUMIFS(Partite!I:I,Partite!G:G,Giocatori!A{player_row})-' +  # Games vinti come giocatore 4
                     f'SUMIFS(Partite!H:H,Partite!F:F,Giocatori!A{player_row})-' +  # Games persi come giocatore 3
-                    f'SUMIFS(Partite!H:H,Partite!G:G,Giocatori!A{player_row})'      # Games persi come giocatore 4
+                    f'SUMIFS(Partite!H:H,Partite!G:G,Giocatori!A{player_row}))'      # Games persi come giocatore 4
                 )
                 sheet_summary.cell(row=row, column=2).value = formula_games_vinti # Games vinti
                 sheet_summary.cell(row=row, column=3).value = formula_partite_vinti# Partite vinti
